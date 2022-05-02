@@ -5,7 +5,7 @@
 # docker hub username
 USERNAME=chuanli11
 # image name
-IMAGE=ngc-pytorch-runai
+IMAGE=horovod-examples
 
 
 # ensure we're up to date

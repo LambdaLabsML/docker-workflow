@@ -1,15 +1,15 @@
 #!/bin/bash
+# Path to build.sh script
+BUILD_SCRIPT=${1:-horovod/examples}
 
-
-# SET THE FOLLOWING VARIABLES
 # docker hub username
-USERNAME=chuanli11
-# build script
-BUILD_SCRIPT=horovod/examples # ngc-tf/runai
+USERNAME=${2:-chuanli11} 
+
 # image name
 IMAGE=`echo ${BUILD_SCRIPT} | tr / -` # select from ngc-tf-runai, horovod-examples
 
 echo $IMAGE
+echo $USERNAME
 
 # ensure we're up to date
 git pull

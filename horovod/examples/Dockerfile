@@ -105,4 +105,4 @@ RUN HOROVOD_GPU_OPERATIONS=NCCL HOROVOD_WITH_TENSORFLOW=1 HOROVOD_WITH_PYTORCH=1
 
 # Copy examples from the horovod repo
 RUN mkdir /examples
-COPY .horovod/examples/examples /examples
+COPY ./horovod/examples/examples /examples

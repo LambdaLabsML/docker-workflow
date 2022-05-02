@@ -20,7 +20,7 @@ version=`cat VERSION`
 echo "version: $version"
 
 # build it
-./${BUILD_SCRIPT}.sh
+./${BUILD_SCRIPT}/build.sh
 
 # tag the latest build
 git add -A

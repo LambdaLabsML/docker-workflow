@@ -10,7 +10,7 @@ ARG PYTORCH_VERSION=1.8.1+cu111
 ARG PYTORCH_LIGHTNING_VERSION=1.5.9
 ARG TORCHVISION_VERSION=0.9.1+cu111
 ARG CUDNN_VERSION=8.1.1.33-1+cuda11.2
-ARG NCCL_VERSION=2.8.4-1+cuda11.2
+ARG NCCL_VERSION_USER="2.8.4-1+cuda11.2"
 ARG MXNET_VERSION=1.8.0.post0
 
 ARG PYSPARK_PACKAGE=pyspark==3.1.1
@@ -30,7 +30,6 @@ SHELL ["/bin/bash", "-euo", "pipefail", "-c"]
 RUN DIST=$(echo ${CUDA_DOCKER_VERSION#*ubuntu} | sed 's/\.//'); \
     apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu${DIST}/x86_64/3bf863cc.pub && \
     apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/machine-learning/repos/ubuntu${DIST}/x86_64/7fa2af80.pub
-
 RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
         build-essential \
         cmake \
@@ -41,8 +40,8 @@ RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-
         wget \
         ca-certificates \
         libcudnn8=${CUDNN_VERSION} \
-        libnccl2=${NCCL_VERSION} \
-        libnccl-dev=${NCCL_VERSION} \
+        libnccl2=${NCCL_VERSION_USER} \
+        libnccl-dev=${NCCL_VERSION_USER} \
         libjpeg-dev \
         libpng-dev \
         python${PYTHON_VERSION} \
@@ -65,9 +64,9 @@ RUN wget --progress=dot:mega -O /tmp/openmpi-3.0.0-bin.tar.gz https://github.com
 
 # Allow OpenSSH to talk to containers without asking for confirmation
 RUN mkdir -p /var/run/sshd
-RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_config.new && \
-    echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config.new && \
-    mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config
+RUN echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config && \
+    echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config
 
 RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python
 

@@ -16,6 +16,9 @@ export DOCKER_BUILDKIT=1 && \
 
 export DOCKER_BUILDKIT=1 && \
 ./ngc/tf/runai/build.sh
+
+export DOCKER_BUILDKIT=1 && \
+./ngc/pytorch/runai/build.sh
 ```
 
 ### Build and release
@@ -29,6 +32,9 @@ export DOCKER_BUILDKIT=1 && \
 
 export DOCKER_BUILDKIT=1 && \
 ./release.sh ngc/tf/runai chuanli11
+
+export DOCKER_BUILDKIT=1 && \
+./release.sh ngc/pytorch/runai chuanli11
 ```
 
 ## Usage

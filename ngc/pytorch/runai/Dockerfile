@@ -14,3 +14,6 @@ RUN mkdir -p /var/run/sshd
 RUN echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config && \
     echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config
+
+# Copy lauch script
+COPY ./ngc/pytorch/runai/launcher-script.sh /workload

@@ -8,3 +8,9 @@ RUN cd /workload && git clone -b pytorch/distributed https://github.com/LambdaLa
 RUN apt-get update && apt install -y openssh-client openssh-server
 
 WORKDIR /workload
+
+# Allow OpenSSH to talk to containers without asking for confirmation
+RUN mkdir -p /var/run/sshd
+RUN echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config && \
+    echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
+    sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config

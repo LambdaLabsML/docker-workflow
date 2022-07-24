@@ -20,4 +20,4 @@ for host in "${hosts[@]}"; do
 done
 
 
-mpirun --allow-run-as-root -np $TOTAL_SLOTS -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib "$@"
+mpirun --allow-run-as-root -np $TOTAL_SLOTS -bind-to none -map-by slot -x NCCL_DEBUG=INFO -x MASTER_ADDR=${hosts[0]} -x MASTER_PORT=1234 -x LD_LIBRARY_PATH -x PATH -mca pml ob1 -mca btl ^openib "$@"

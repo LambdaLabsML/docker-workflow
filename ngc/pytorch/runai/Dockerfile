@@ -16,4 +16,5 @@ RUN echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config && \
     sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config
 
 # Copy lauch script
-COPY ./ngc/pytorch/runai/launcher-script.sh /workload
+COPY ./ngc/pytorch/runai/launcher-script.sh /usr/bin
+RUN chmod a+x /usr/bin/launcher-script.sh

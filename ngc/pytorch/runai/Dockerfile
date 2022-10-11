@@ -13,8 +13,11 @@ RUN echo "    UserKnownHostsFile /dev/null" >> /etc/ssh/ssh_config && \
     echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config && \
     sed -i 's/#\(StrictModes \).*/\1no/g' /etc/ssh/sshd_config
 
+# Clone example repo
+RUN cd /workload && git clone https://github.com/LambdaLabsML/examples.git && cd ..
+
 # Copy lauch script
 COPY ./ngc/pytorch/runai/launcher-script.sh /usr/bin
 RUN chmod a+x /usr/bin/launcher-script.sh
 
-RUN cd /workload && git clone https://github.com/LambdaLabsML/examples.git && cd ..
+
